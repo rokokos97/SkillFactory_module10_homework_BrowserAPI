@@ -15,6 +15,10 @@
 
 - Bootstrap
 
+## API:
+
+- Geolocation
+
 ### Student: Rostyslav Lisovyi
 
 ### Group: FR-81
