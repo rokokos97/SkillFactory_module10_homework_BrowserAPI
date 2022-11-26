@@ -9,14 +9,16 @@ function pageLoaded() {
   let socket = new WebSocket(wssUrl);
 
   socket.onopen = () => {
-    chatMessageArea.innerHTML = `<div class="info-message">Соединение установлено</div>`;
+    writeInfoMessage("connection is established");
   };
-  socket.onmessage = (event) => {
-    writeToChat(event.data, true);
+  socket.onmessage = (e) => {
+    if (e.data !== "[object GeolocationCoordinates]") {
+      writeToChat(e.data, true);
+    }
   };
 
   socket.onerror = () => {
-    chatMessageArea.innerHTML = `<div class="info-message">При передаче данных произошла ошибка</div>`;
+    writeInfoMessage("connecting error");
   };
 
   btnSend.addEventListener("click", (e) => {
@@ -24,19 +26,56 @@ function pageLoaded() {
     sendMessage();
   });
 
+  btnLocation.addEventListener("click", (e) => {
+    e.preventDefault();
+    sendLocation();
+  });
+
   function sendMessage() {
     if (!input.value) return;
     socket.send(input.value);
     writeToChat(input.value, false);
-    input.value === "";
+    input.value = "";
   }
 
-  function writeToChat(message, isServer) {
+  function writeToChat(message, sender) {
     let messageHTML = `<div class="${
-      isServer ? "server-message" : "user-message"
+      sender ? "server-message" : "user-message"
     }">${message}</div>`;
     chatMessageArea.innerHTML += messageHTML;
   }
+
+  function writeInfoMessage(message) {
+    let messageHTML = `<div class="info-message">${message}</div>`;
+    chatMessageArea.innerHTML += messageHTML;
+  }
+
+  function sendLocation() {
+    if ("geolocation" in navigator) {
+      let locationOptions = {
+        enableHighAccuracy: true,
+      };
+      navigator.geolocation.getCurrentPosition(
+        locationSuccess,
+        locationError,
+        locationOptions
+      );
+    } else {
+      writeInfoMessage("Your browser don't support geolocation");
+    }
+  }
+}
+
+function locationSuccess(data) {
+  let chatMessageArea = document.querySelector(".chat-message-area");
+  let link = `https://www.openstreetmap.org/?mlat=${data.coords.latitude}&mlon=${data.coords.longitude}#map=19/${data.coords.latitude}/${data.coords.longitude}`;
+  let messageHTML = `<div class="info-message"><a href="${link}" target="_blank">You are here</a></div>`;
+  chatMessageArea.innerHTML += messageHTML;
+}
+
+function locationError() {
+  let chatMessageArea = document.querySelector(".chat-message-area");
+  chatMessageArea.innerHTML = `<div class="info-message">Problem with your geolocation</div>`;
 }
 
 document.addEventListener("DOMContentLoaded", pageLoaded);
