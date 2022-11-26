@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,400;0,600;1,400&display=swap');
+
+body {
+    margin: 50px;
+    background: linear-gradient(red, greenyellow);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+}
+
+.header {
+    margin-top: 50px;
+}
+
+.card {
+    display: flex;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.chat-area {
+    width: 35%;
+    margin: 20px auto;
+    display: flex;
+}
+
+.input {
+    background: unset;
+}
+
+.message-block {
+    width: 60%;
+    border: cornflowerblue solid 2px;
+}
+
+.btn-sm {
+    width: 20%;
+    font-size: 12px;
+}
+
+.chat-message-area {
+    width: 35%;
+    height: 200px;
+    margin: 10px auto;
+    border: cornflowerblue solid 2px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow-y: scroll;
+
+}
+
+.chat-message-area > div {
+    max-width: 80%;
+    width: fit-content;
+    margin: 4px 6px;
+    padding: 2px 4px;
+    border: cornflowerblue solid 2px;
+    border-radius: 5px;
+}
+
+.user-message {
+    background-color: mediumblue;
+    color: white;
+    align-self: flex-start;
+}
+
+.server-message {
+    align-self: flex-end;
+    background-color: yellow;
+}
+
+.info-message {
+    align-self: center;
+    background: red;
+}
+
