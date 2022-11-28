@@ -24,5 +24,5 @@
 ### Group: FR-81
 ----
 
-## visit my another work here ==> [![HWSite](https://rokokos97.github.io/SkillFactory_homework_landing/img/svg/cameraOnlineSection.svg)](https://rokokos97.github.io/SkillFactory_homework_landing/)
+## visit to my another repository => [![HWSite]https://www.svgrepo.com/show/332084/github.svg](https://rokokos97.github.io/SkillFactory_homework_landing/)
 
